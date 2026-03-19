@@ -36,7 +36,7 @@ export function MetricsCards({ metrics }) {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-10 mb-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 px-4 md:px-10 mb-6 md:mb-8">
       {cards.map((card, idx) => (
         <motion.div
           key={idx}
@@ -48,7 +48,7 @@ export function MetricsCards({ metrics }) {
             boxShadow: "var(--shadow-premium-xl)",
             transition: { duration: 0.4, ease: "easeOut" }
           }}
-          className="bg-white rounded-[3rem] p-10 shadow-2xl drop-shadow-xl border border-gray-100/50 flex flex-col justify-between hover:border-brand-purple/30 transition-all duration-500 group cursor-pointer"
+          className="bg-white rounded-3xl md:rounded-[3rem] p-6 md:p-10 shadow-2xl drop-shadow-xl border border-gray-100/50 flex flex-col justify-between hover:border-brand-purple/30 transition-all duration-500 group cursor-pointer"
         >
           {/* Card Header with icon */}
           <div className="flex justify-between items-start mb-6">

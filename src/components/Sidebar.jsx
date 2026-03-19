@@ -14,13 +14,13 @@ import {
   Moon
 } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 /**
  * Sidebar Component
  * Left-side navigation menu with branding and theme actions
  */
-export function Sidebar() {
+export function Sidebar({ isOpen, onClose }) {
   // Navigation menu items list
   const menuItems = [
     { icon: LayoutGrid, label: 'Dashboard', active: true },
@@ -33,7 +33,26 @@ export function Sidebar() {
   ];
 
   return (
-    <div className="w-72 bg-white flex flex-col h-screen sticky top-0 py-8 px-6 border-r border-gray-50 z-20">
+    <>
+      {/* Mobile Overlay */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="md:hidden fixed inset-0 z-40 bg-gray-900/20 backdrop-blur-sm"
+          />
+        )}
+      </AnimatePresence>
+
+      <div
+        className={cn(
+          "w-72 bg-white flex flex-col h-screen fixed md:sticky top-0 py-8 px-6 border-r border-gray-50 z-50 transition-transform duration-300 left-0",
+          !isOpen && "-translate-x-full md:translate-x-0"
+        )}
+      >
       {/* 1. Branding (Logo and Name) */}
       <div className="flex items-center justify-between mb-12">
         <div className="flex items-center gap-3">
@@ -42,7 +61,7 @@ export function Sidebar() {
           </div>
           <span className="font-bold text-2xl tracking-tighter text-gray-900 leading-none">Taskflow</span>
         </div>
-        <button className="p-1.5 rounded-full border border-gray-100 text-gray-400 hover:bg-gray-50 transition-all">
+        <button onClick={onClose} className="md:hidden p-1.5 rounded-full border border-gray-100 text-gray-400 hover:bg-gray-50 transition-all">
           <ChevronLeft size={16} />
         </button>
       </div>
@@ -90,5 +109,6 @@ export function Sidebar() {
         </motion.button>
       </div>
     </div>
+    </>
   );
 }

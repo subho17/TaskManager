@@ -1,20 +1,25 @@
 import React, { useState } from 'react';
-import { Search, Bell, Calendar, ChevronDown, Plus, LayoutGrid, Sun, Moon } from 'lucide-react';
+import { Search, Bell, Calendar, ChevronDown, Plus, LayoutGrid, Sun, Moon, Menu } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
  * Header Component
  * Top bar containing user greeting and search/notification actions
  */
-export function Header() {
+export function Header({ onMenuClick }) {
   const [isSearchFocused, setIsSearchFocused] = useState(false);
 
   return (
-    <div className="sticky top-0 z-20 flex items-center justify-between py-6 px-10 bg-white/95 backdrop-blur-xl shadow-premium-md border-b border-gray-100/50">
-      {/* 1. Greeting Area */}
-      <div className="space-y-1">
-        <h1 className="text-3xl font-bold text-gray-900 tracking-light">Welcome back, Subhadeep!</h1>
-        <p className="text-gray-400 text-base font-medium">It's a great time to manage your tasks</p>
+    <div className="sticky top-0 z-20 flex items-center justify-between py-4 md:py-6 px-4 md:px-10 bg-white/95 backdrop-blur-xl shadow-premium-md border-b border-gray-100/50">
+      {/* Mobile Menu & Greeting Area */}
+      <div className="flex flex-1 items-center gap-4">
+        <button className="md:hidden p-2 text-gray-900 rounded-xl hover:bg-gray-100 transition-colors" onClick={onMenuClick}>
+          <Menu size={24} />
+        </button>
+        <div className="hidden md:block space-y-1">
+          <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 tracking-light">Welcome back, Subhadeep!</h1>
+          <p className="text-gray-400 text-sm lg:text-base font-medium">It's a great time to manage your tasks</p>
+        </div>
       </div>
 
       {/* 2. Top-right Buttons and Profile */}
@@ -87,7 +92,7 @@ export function Header() {
  */
 export function Toolbar() {
   return (
-    <div className="flex items-center justify-between px-10 mb-8 mt-2">
+    <div className="flex flex-col md:flex-row items-start md:items-center justify-between px-4 md:px-10 mb-6 md:mb-8 mt-2 gap-4">
       {/* Date / Period Filter */}
       <div className="flex items-center gap-3">
         <button className="p-3 rounded-2xl bg-white border border-gray-50 text-gray-400 hover:text-gray-900 shadow-sm">

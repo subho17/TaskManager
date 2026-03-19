@@ -40,6 +40,7 @@ const MOCK_TASKS = [
 function App() {
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Initial loading effect for a professional entry feel
   useEffect(() => {
@@ -54,18 +55,18 @@ function App() {
       ) : (
         <>
           {/* 1. Rigid Sidebar (Stays on the left) */}
-          <Sidebar />
+          <Sidebar isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
 
           {/* 2. Main Scrollable Content Area */}
           <main className="flex-1 flex flex-col h-screen overflow-hidden">
         {/* Top Header Section */}
-        <Header />
+        <Header onMenuClick={() => setIsMobileMenuOpen(true)} />
 
         {/* Main Dashboard Content with smooth fade-in */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="flex-1 bg-white/40 shadow-premium-lg rounded-tl-[3.5rem] mt-4 ml-4 overflow-x-hidden border-t border-l border-white/50 custom-scrollbar"
+          className="flex-1 bg-white/40 shadow-premium-lg rounded-none md:rounded-tl-[3.5rem] mt-0 md:mt-4 ml-0 md:ml-4 overflow-x-hidden border-t border-l border-white/50 custom-scrollbar"
         >
           {/* Action Toolbar */}
           <Toolbar />
@@ -74,7 +75,7 @@ function App() {
           <MetricsCards metrics={MOCK_METRICS} />
 
           {/* Responsive Grid Layout */}
-          <div className="px-10 space-y-8">
+          <div className="px-4 md:px-10 space-y-6 md:space-y-8 pb-10">
 
             {/* Middle Row: Big Charts */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
